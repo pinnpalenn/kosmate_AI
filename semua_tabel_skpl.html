@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Semua Tabel SKPL - KosMate AI</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Arial, sans-serif; 
+            padding: 20px; 
+            background: #f4f6f9;
+        }
+        h2 {
+            color: #1a73e8;
+            border-bottom: 2px solid #1a73e8;
+            padding-bottom: 5px;
+            margin-top: 40px;
+        }
+        /* Styling Global untuk Tabel agar Muat di Word */
+        table { 
+            border-collapse: collapse; 
+            width: 100%; 
+            max-width: 700px; /* Lebar maksimal kertas A4 Portrait di Word */
+            table-layout: fixed; /* Mencegah tabel melebar otomatis */
+            word-wrap: break-word; /* Memaksa teks panjang turun ke bawah */
+            background: #fff;
+            margin-bottom: 20px;
+        }
+        th, td { 
+            border: 1px solid black; 
+            padding: 8px; 
+            text-align: left; 
+            vertical-align: top; 
+            font-size: 11pt; /* Ukuran font standar skripsi */
+        }
+        th { 
+            background-color: #e0e0e0; 
+            font-weight: bold; 
+            text-align: center;
+        }
+        .instruksi { 
+            background: #e8f0fe; 
+            padding: 15px; 
+            margin-bottom: 30px; 
+            border-left: 5px solid #1a73e8; 
+            max-width: 700px; 
+        }
+
+        /* ---------------- LEBAR KOLOM SPESIFIK ---------------- */
+        
+        /* 1. Riwayat Revisi */
+        .tb-revisi th:nth-child(1) { width: 25%; }
+        .tb-revisi th:nth-child(2) { width: 15%; }
+        .tb-revisi th:nth-child(3) { width: 45%; }
+        .tb-revisi th:nth-child(4) { width: 15%; text-align:center;}
+
+        /* 2. Definisi & Istilah */
+        .tb-definisi th:nth-child(1) { width: 25%; }
+        .tb-definisi th:nth-child(2) { width: 75%; }
+
+        /* 3. Karakteristik Pengguna */
+        .tb-karakteristik th:nth-child(1) { width: 18%; }
+        .tb-karakteristik th:nth-child(2) { width: 32%; }
+        .tb-karakteristik th:nth-child(3) { width: 25%; }
+        .tb-karakteristik th:nth-child(4) { width: 25%; }
+
+        /* 4. Software Interface */
+        .tb-software th:nth-child(1) { width: 25%; }
+        .tb-software th:nth-child(2) { width: 25%; }
+        .tb-software th:nth-child(3) { width: 50%; }
+
+        /* 5. Kebutuhan Fungsional */
+        .tb-fr th:nth-child(1) { width: 12%; text-align:center;}
+        .tb-fr th:nth-child(2) { width: 28%; }
+        .tb-fr th:nth-child(3) { width: 60%; }
+
+        /* 6. Non-Functional (NFR) */
+        .tb-nfr th:nth-child(1) { width: 12%; text-align:center;}
+        .tb-nfr th:nth-child(2) { width: 20%; }
+        .tb-nfr th:nth-child(3) { width: 58%; }
+        .tb-nfr th:nth-child(4) { width: 10%; text-align:center;}
+
+    </style>
+</head>
+<body>
+    <div class="instruksi">
+        <b>PANDUAN COPY PASTE KE WORD:</b><br>
+        1. Halaman ini berisi <b>SEMUA TABEL</b> yang ada di SKPL KosMate AI.<br>
+        2. Semua tabel sudah diatur ukurannya maksimal 700 pixel (seukuran kertas A4).<br>
+        3. Cukup <b>Blok tabelnya</b>, lalu <b>Copy (Ctrl+C)</b>.<br>
+        4. Buka Word Anda, klik kanan, lalu pilih ikon <b>Keep Source Formatting (K)</b> saat melakukan Paste.<br>
+        <i>*Atau Anda juga bisa menggunakan <b>Snipping Tool (Win+Shift+S)</b> jika ingin menjadikannya file gambar statis.</i>
+    </div>
+
+    <!-- TABEL 1 -->
+    <h2>1. Tabel Riwayat Revisi Dokumen</h2>
+    <table class="tb-revisi">
+        <tr>
+            <th>Name</th>
+            <th>Date</th>
+            <th>Reason For Changes</th>
+            <th>Version</th>
+        </tr>
+        <tr>
+            <td>[Nama Anda]</td>
+            <td>2026-07-10</td>
+            <td>Pembuatan dokumen awal berdasarkan rancangan sistem KosMate AI</td>
+            <td style="text-align:center;">1.0.0</td>
+        </tr>
+        <tr>
+            <td>[Nama Anda]</td>
+            <td>2026-07-17</td>
+            <td>Penyesuaian format SKPL mengikuti standar IEEE SRS, penambahan modul CCTV dan Grafik Keuangan</td>
+            <td style="text-align:center;">1.1.0</td>
+        </tr>
+        <tr>
+            <td>[Nama Anda]</td>
+            <td>2026-07-17</td>
+            <td>Penambahan 10 Diagram Lengkap (Class, Sequence, Activity), serta modul Tenants DB dan Agent Config</td>
+            <td style="text-align:center;">1.2.0</td>
+        </tr>
+    </table>
+
+    <!-- TABEL 2 -->
+    <h2>2. Tabel Definisi dan Istilah</h2>
+    <table class="tb-definisi">
+        <tr>
+            <th>Istilah / Akronim</th>
+            <th>Definisi</th>
+        </tr>
+        <tr><td><b>Agentic AI</b></td><td>Paradigma AI di mana sistem mampu merencanakan dan mengeksekusi serangkaian tindakan otonom untuk mencapai tujuan.</td></tr>
+        <tr><td><b>Mikrotik RouterOS</b></td><td>Sistem operasi jaringan untuk mengelola bandwidth, firewall, dan koneksi internet kos.</td></tr>
+        <tr><td><b>SSH (Secure Shell)</b></td><td>Protokol komunikasi aman untuk mengirim perintah dari sistem ke router Mikrotik dari jarak jauh.</td></tr>
+        <tr><td><b>QRIS</b></td><td>Standar kode QR nasional Indonesia untuk menerima pembayaran digital secara instan.</td></tr>
+        <tr><td><b>IoT Monitoring</b></td><td>Simulasi pemantauan ekosistem perangkat fisik untuk menghitung konsumsi energi (kWh) listrik per kamar.</td></tr>
+        <tr><td><b>Motion Detection</b></td><td>Teknologi deteksi pergerakan yang mencurigakan dalam frame video kamera CCTV.</td></tr>
+        <tr><td><b>Dashboard</b></td><td>Antarmuka visual terpusat yang menampilkan ringkasan data keuangan dan status sistem real-time.</td></tr>
+        <tr><td><b>Bandwidth Throttling</b></td><td>Teknik pemotongan/pembatasan kecepatan internet pada penghuni yang menunggak secara otomatis.</td></tr>
+    </table>
+
+    <!-- TABEL 3 -->
+    <h2>3. Tabel Karakteristik Pengguna</h2>
+    <table class="tb-karakteristik">
+        <tr>
+            <th>Kategori Pengguna</th>
+            <th>Tugas Utama</th>
+            <th>Hak Akses ke Aplikasi</th>
+            <th>Kemampuan Minimum</th>
+        </tr>
+        <tr>
+            <td><b>Admin / Pemilik</b></td>
+            <td>Memantau seluruh kamar, kelola tagihan, verifikasi pembayaran, & awasi CCTV.</td>
+            <td><b>Penuh:</b> Dashboard, Data Penghuni, Keuangan, Mikrotik, CCTV, Settings.</td>
+            <td>Bisa mengoperasikan web browser & paham manajemen kos.</td>
+        </tr>
+        <tr>
+            <td><b>AI Agent (KosMate)</b></td>
+            <td>Proses chat admin, deteksi penunggak, dan eksekusi blokir Mikrotik.</td>
+            <td><b>Otonom:</b> Akses ke data status kamar, terminal Mikrotik, dan notifikasi.</td>
+            <td>Beroperasi otonom berbasis komputasi logika tanpa bantuan manusia.</td>
+        </tr>
+    </table>
+
+    <!-- TABEL 4 -->
+    <h2>4. Tabel Antarmuka Perangkat Lunak (Software)</h2>
+    <table class="tb-software">
+        <tr>
+            <th>Perangkat Lunak</th>
+            <th>Versi</th>
+            <th>Fungsi dalam Sistem</th>
+        </tr>
+        <tr>
+            <td><b>Browser Modern</b></td>
+            <td>Chrome 90+, Firefox 88+, Safari 14+</td>
+            <td>Runtime (mesin utama) untuk menjalankan seluruh aplikasi web dan simulasi.</td>
+        </tr>
+        <tr>
+            <td><b>Chart.js</b></td>
+            <td>v4.x (via CDN jsdelivr)</td>
+            <td>Merender grafik statistik keuangan secara interaktif menggunakan kanvas HTML5.</td>
+        </tr>
+        <tr>
+            <td><b>Font Awesome</b></td>
+            <td>v6.4.0 (via CDN cdnjs)</td>
+            <td>Menyediakan ikon vektor antarmuka pengguna di seluruh platform.</td>
+        </tr>
+        <tr>
+            <td><b>Unsplash CDN</b></td>
+            <td>URL-based</td>
+            <td>Penyedia gambar HD dinamis untuk simulasi feed rekaman kamera CCTV.</td>
+        </tr>
+    </table>
+
+    <!-- TABEL 5 -->
+    <h2>5. Tabel Kebutuhan Fungsional (Functional Requirements)</h2>
+    <table class="tb-fr">
+        <tr>
+            <th>ID</th>
+            <th>Kebutuhan Fungsional</th>
+            <th>Penjelasan / Rincian Singkat</th>
+        </tr>
+        <tr><td style="text-align:center;"><b>FR-01</b></td><td><b>Pemantauan Kamar</b></td><td>Merender grid 12 kamar (Lunas/Nunggak/Pending) & membuka rincian modal saat diklik.</td></tr>
+        <tr><td style="text-align:center;"><b>FR-02</b></td><td><b>Manajemen Tagihan</b></td><td>Kalkulasi tagihan Listrik/Air/WiFi otomatis, input denda Rp 25rb, dan IoT Monitoring per perangkat.</td></tr>
+        <tr><td style="text-align:center;"><b>FR-03</b></td><td><b>Finance & QRIS</b></td><td>Tampilan animasi QRIS Scanner, ringkasan saldo terkumpul, riwayat bayar, dan Blast Invoice WA.</td></tr>
+        <tr><td style="text-align:center;"><b>FR-04</b></td><td><b>Tenants DB</b></td><td>Tabel data penghuni (nama, kontak darurat, sisa kontrak) dilengkapi fitur pencarian.</td></tr>
+        <tr><td style="text-align:center;"><b>FR-05</b></td><td><b>Security CCTV</b></td><td>Simulasi motion detection setiap 30 detik pada 4 kamera, memunculkan event log & HUD Timestamp.</td></tr>
+        <tr><td style="text-align:center;"><b>FR-06</b></td><td><b>Agentic AI Chatbot</b></td><td>Sistem Natural Language Processing untuk memahami chat admin ("nunggak", "gas eksekusi") dan bertindak mandiri.</td></tr>
+        <tr><td style="text-align:center;"><b>FR-07</b></td><td><b>Mikrotik Terminal</b></td><td>Cetak respons log eksekusi perintah SSH RouterOS saat sistem AI melakukan pemblokiran bandwidth.</td></tr>
+    </table>
+
+    <!-- TABEL 6 -->
+    <h2>6. Tabel Non-Functional Requirements (NFR)</h2>
+    <table class="tb-nfr">
+        <tr>
+            <th>ID</th>
+            <th>Parameter</th>
+            <th>Deskripsi Kebutuhan</th>
+            <th>Prioritas</th>
+        </tr>
+        <tr>
+            <td style="text-align:center;"><b>NFR-01</b></td><td><b>Availability</b></td>
+            <td>Aplikasi harus dapat diakses selalu karena berjalan sepenuhnya di browser (client-side) tanpa ketergantungan server backend.</td>
+            <td style="text-align:center;">Tinggi</td>
+        </tr>
+        <tr>
+            <td style="text-align:center;"><b>NFR-02</b></td><td><b>Reliability</b></td>
+            <td>Mampu menyelesaikan skenario otomasi Mikrotik tanpa JavaScript runtime error (null-safe check aktif).</td>
+            <td style="text-align:center;">Tinggi</td>
+        </tr>
+        <tr>
+            <td style="text-align:center;"><b>NFR-03</b></td><td><b>Performance</b></td>
+            <td>Transisi animasi halus di 60fps. Render grafik Chart.js <= 300ms. Jam CCTV update setiap 500ms.</td>
+            <td style="text-align:center;">Tinggi</td>
+        </tr>
+        <tr>
+            <td style="text-align:center;"><b>NFR-04</b></td><td><b>Aesthetics</b></td>
+            <td>Menggunakan tema 'Ultra-Modern Dark Pro' dengan CSS Glassmorphism dan warna neon (Biru & Ungu).</td>
+            <td style="text-align:center;">Tinggi</td>
+        </tr>
+        <tr>
+            <td style="text-align:center;"><b>NFR-05</b></td><td><b>Portability</b></td>
+            <td>Aplikasi wajib berjalan konsisten lintas browser (Chrome, Edge, Safari, Firefox).</td>
+            <td style="text-align:center;">Tinggi</td>
+        </tr>
+    </table>
+
+</body>
+</html>

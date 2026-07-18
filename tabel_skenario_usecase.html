@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Skenario Use Case - KosMate AI</title>
+    <style>
+        body { 
+            font-family: 'Times New Roman', Times, serif; /* Mengikuti gaya dokumen formal di gambar */
+            padding: 20px; 
+            background: #f4f6f9;
+        }
+        h3 {
+            margin-top: 40px;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            font-size: 13pt; /* Judul diperkecil */
+        }
+        table { 
+            border-collapse: collapse; 
+            width: 100%; 
+            max-width: 630px; /* Ukuran diperkecil agar pas persis di kertas A4 Word */
+            table-layout: fixed; 
+            background: #fff;
+            margin-bottom: 20px;
+            font-size: 10pt; /* Huruf di dalam tabel diperkecil */
+        }
+        td { 
+            border: 1px solid black; 
+            padding: 4px 6px; /* Jarak atas/bawah teks diperkecil agar tabel tidak panjang/boros tempat */
+            text-align: left; 
+            vertical-align: top; 
+            word-wrap: break-word; /* Mencegah teks menembus batas kotak */
+        }
+        /* Mengatur agar kolom memiliki lebar proporsional untuk 4 kolom di bagian bawah */
+        .col-25 { width: 25%; }
+        .col-50 { width: 50%; }
+        
+        .instruksi { 
+            background: #e8f0fe; 
+            padding: 15px; 
+            margin-bottom: 30px; 
+            border-left: 5px solid #1a73e8; 
+            max-width: 630px; 
+            font-family: 'Segoe UI', Arial, sans-serif;
+            font-size: 11pt;
+        }
+        .header-bold { font-weight: bold; text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="instruksi">
+        <b>TABEL DESKRIPSI/SKENARIO USE CASE:</b><br>
+        Saya melihat format tabel Skenario Use Case (Deskripsi Use Case) dari gambar yang Anda kirimkan. Saya telah membuatkan format yang <b>persis 100% sama</b> dengan gambar Anda untuk diterapkan pada sistem KosMate AI.<br><br>
+        Silakan Blok, Copy (Ctrl+C), dan Paste (Ctrl+V) tabel di bawah ini ke Word Anda!
+    </div>
+
+    <!-- USE CASE 1 -->
+    <h3 style="font-weight: normal;">4.2.1 Deskripsi Use Case Pantau Status Kamar</h3>
+    <table>
+        <tr>
+            <td colspan="2" class="col-50"><b>Use Case <span class="header-bold">Name :</span></b> Pantau Status Kamar</td>
+            <td class="col-25"><b><span class="header-bold">ID :</span></b> UC-01</td>
+            <td class="col-25"><b><span class="header-bold">Priority :</span></b> High</td>
+        </tr>
+        <tr>
+            <td colspan="4"><b><span class="header-bold">Actor :</span></b> Admin / Pemilik Kos</td>
+        </tr>
+        <tr>
+            <td colspan="4"><b><span class="header-bold">Description :</span></b> Use case ini digunakan oleh admin untuk memantau status pembayaran seluruh kamar secara visual dan melihat detail tagihan serta kendali IoT tiap kamar.</td>
+        </tr>
+        <tr>
+            <td colspan="4"><b><span class="header-bold">Trigger :</span></b> Admin membuka menu Dashboard / Overviews.</td>
+        </tr>
+        <tr>
+            <td colspan="4"><b><span class="header-bold">Type :</span></b> [ X ] External || [  ] Temporal</td>
+        </tr>
+        <tr>
+            <td colspan="4"><b><span class="header-bold">Preconditions :</span></b><br>
+            1. Sistem telah memuat data in-memory status kamar dan tagihan utilitas.</td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <b>Normal <span class="header-bold">Course :</span></b><br>
+                1. Admin membuka halaman Dashboard.<br>
+                2. Sistem menampilkan grid 12 kartu kamar beserta status warnanya.<br>
+                3. Admin memilih (klik) salah satu kartu kamar.<br>
+                4. Sistem menampilkan Modal Detail Kamar.<br>
+                5. Admin menekan tombol toggle Blokir WiFi.<br>
+                6. Sistem mengubah status indikator WiFi menjadi tidak aktif.
+            </td>
+            <td colspan="2">
+                <b>Information for Steps:</b><br>
+                1. -<br>
+                2. Data Status (Lunas/Nunggak/Pending)<br>
+                3. ID Kamar<br>
+                4. Profil, Tagihan, Persentase IoT<br>
+                5. -<br>
+                6. Pembaruan DOM UI
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4"><b><span class="header-bold">Postconditions :</span></b><br>
+            1. Admin berhasil melihat rincian kamar dan mengubah status konektivitas penghuni.</td>
+        </tr>
+        <tr>
+            <td colspan="4"><b><span class="header-bold">Exceptions :</span></b><br>
+            1. Data in-memory gagal dimuat atau korup.</td>
+        </tr>
+        <tr>
+            <td>Summary Inputs</td>
+            <td>Source</td>
+            <td>Summary Outputs</td>
+            <td>Destination</td>
+        </tr>
+        <tr>
+            <td>Klik Kartu, Klik Toggle WiFi</td>
+            <td>Admin</td>
+            <td>Tampilan Modal Detail, Perubahan Warna UI</td>
+            <td>Admin</td>
+        </tr>
+    </table>
+
+    <!-- USE CASE 3 -->
+    <h3 style="font-weight: normal;">4.2.2 Deskripsi Use Case Kelola Finance & QRIS</h3>
+    <table>
+        <tr>
+            <td colspan="2" class="col-50"><b>Use Case <span class="header-bold">Name :</span></b> Kelola Finance & QRIS</td>
+            <td class="col-25"><b><span class="header-bold">ID :</span></b> UC-03</td>
+            <td class="col-25"><b><span class="header-bold">Priority :</span></b> High</td>
+        </tr>
+        <tr>
+            <td colspan="4"><b><span class="header-bold">Actor :</span></b> Admin / Pemilik Kos</td>
+        </tr>
+        <tr>
+            <td colspan="4"><b><span class="header-bold">Description :</span></b> Use case ini digunakan untuk melihat rekapitulasi keuangan, riwayat pembayaran, dan menampilkan kode QRIS dinamis untuk pembayaran penghuni.</td>
+        </tr>
+        <tr>
+            <td colspan="4"><b><span class="header-bold">Trigger :</span></b> Admin menavigasi ke tab menu Finance & QRIS.</td>
+        </tr>
+        <tr>
+            <td colspan="4"><b><span class="header-bold">Type :</span></b> [ X ] External || [  ] Temporal</td>
+        </tr>
+        <tr>
+            <td colspan="4"><b><span class="header-bold">Preconditions :</span></b><br>
+            1. Terdapat data riwayat pembayaran di dalam sistem.</td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <b>Normal <span class="header-bold">Course :</span></b><br>
+                1. Admin membuka menu Finance & QRIS.<br>
+                2. Sistem menampilkan ringkasan saldo, rincian tagihan, dan tabel riwayat.<br>
+                3. Sistem menginisialisasi animasi pada kartu QRIS dinamis.<br>
+                4. Admin menekan tombol "Blast Invoice via WA".<br>
+                5. Sistem menampilkan toast notifikasi keberhasilan pengiriman.
+            </td>
+            <td colspan="2">
+                <b>Information for Steps:</b><br>
+                1. -<br>
+                2. Data Pendapatan, Tabel Riwayat<br>
+                3. CSS Scanner Animation<br>
+                4. Trigger Event<br>
+                5. Pesan Toast Notifikasi
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4"><b><span class="header-bold">Postconditions :</span></b><br>
+            1. Invoice berhasil disimulasikan terkirim ke penghuni.</td>
+        </tr>
+        <tr>
+            <td colspan="4"><b><span class="header-bold">Exceptions :</span></b><br>
+            1. Kegagalan memuat komponen animasi UI.</td>
+        </tr>
+        <tr>
+            <td>Summary Inputs</td>
+            <td>Source</td>
+            <td>Summary Outputs</td>
+            <td>Destination</td>
+        </tr>
+        <tr>
+            <td>Navigasi Tab, Klik Blast WA</td>
+            <td>Admin</td>
+            <td>Tampilan Dashboard Finance, Notifikasi Sukses</td>
+            <td>Admin</td>
+        </tr>
+    </table>
+
+    <!-- USE CASE 6 -->
+    <h3 style="font-weight: normal;">4.2.3 Deskripsi Use Case Proses Chatbot Agentic</h3>
+    <table>
+        <tr>
+            <td colspan="2" class="col-50"><b>Use Case <span class="header-bold">Name :</span></b> Proses Chatbot Agentic</td>
+            <td class="col-25"><b><span class="header-bold">ID :</span></b> UC-06</td>
+            <td class="col-25"><b><span class="header-bold">Priority :</span></b> High</td>
+        </tr>
+        <tr>
+            <td colspan="4"><b><span class="header-bold">Actor :</span></b> Admin, AI Agent</td>
+        </tr>
+        <tr>
+            <td colspan="4"><b><span class="header-bold">Description :</span></b> Use case ini memfasilitasi interaksi bahasa natural (sehari-hari) antara Admin dan sistem AI untuk menjalankan otomasi pengecekan penunggak.</td>
+        </tr>
+        <tr>
+            <td colspan="4"><b><span class="header-bold">Trigger :</span></b> Admin mengklik tombol AI (ikon robot) mengambang di pojok kanan bawah.</td>
+        </tr>
+        <tr>
+            <td colspan="4"><b><span class="header-bold">Type :</span></b> [ X ] External || [  ] Temporal</td>
+        </tr>
+        <tr>
+            <td colspan="4"><b><span class="header-bold">Preconditions :</span></b><br>
+            1. Sistem AI NLP (Natural Language Processing) simulasi sudah aktif.</td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <b>Normal <span class="header-bold">Course :</span></b><br>
+                1. Admin mengetikkan pesan "Siapa yang nunggak?".<br>
+                2. AI Agent menganalisis kata kunci dari pesan teks.<br>
+                3. AI Agent merespons dengan menampilkan daftar kamar penunggak dan meminta konfirmasi.<br>
+                4. Admin membalas "Gas eksekusi".<br>
+                5. AI Agent mengambil alih kendali dan memindahkan tab ke terminal Mikrotik (trigger UC-07).
+            </td>
+            <td colspan="2">
+                <b>Information for Steps:</b><br>
+                1. String Pesan Input<br>
+                2. Regex / Keyword Matching<br>
+                3. Teks Balasan AI<br>
+                4. Perintah Konfirmasi<br>
+                5. Programmatic Tab Switch
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4"><b><span class="header-bold">Postconditions :</span></b><br>
+            1. AI berhasil memahami instruksi dan mempersiapkan eksekusi otonom.</td>
+        </tr>
+        <tr>
+            <td colspan="4"><b><span class="header-bold">Exceptions :</span></b><br>
+            1. Teks masukan admin tidak mengandung kata kunci yang dikenali (AI merespons tidak mengerti).</td>
+        </tr>
+        <tr>
+            <td>Summary Inputs</td>
+            <td>Source</td>
+            <td>Summary Outputs</td>
+            <td>Destination</td>
+        </tr>
+        <tr>
+            <td>Teks Pertanyaan, Teks Konfirmasi</td>
+            <td>Admin</td>
+            <td>Teks Jawaban, Perpindahan Tab Otomatis</td>
+            <td>Admin, AI Agent</td>
+        </tr>
+    </table>
+
+</body>
+</html>

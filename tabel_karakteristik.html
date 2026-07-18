@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Tabel Karakteristik Pengguna - KosMate AI</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; padding: 20px; }
+        /* Memaksa tabel agar tidak kepanjangan ke samping saat dicopy */
+        table { 
+            border-collapse: collapse; 
+            width: 100%; 
+            max-width: 700px; /* Ukuran standar kertas A4/Word */
+            table-layout: fixed; 
+            word-wrap: break-word; 
+        }
+        th, td { 
+            border: 1px solid black; 
+            padding: 8px; 
+            text-align: left; 
+            vertical-align: top; 
+            font-size: 11pt; /* Ukuran font standar skripsi */
+        }
+        th { background-color: #f2f2f2; font-weight: bold; }
+        
+        /* Mengatur porsi lebar kolom agar proporsional */
+        th:nth-child(1) { width: 18%; } /* Kolom Kategori */
+        th:nth-child(2) { width: 32%; } /* Kolom Tugas */
+        th:nth-child(3) { width: 25%; } /* Kolom Akses */
+        th:nth-child(4) { width: 25%; } /* Kolom Kemampuan */
+        
+        .instruksi { background: #e8f0fe; padding: 15px; margin-bottom: 20px; border-left: 5px solid #1a73e8; max-width: 700px; }
+    </style>
+</head>
+<body>
+    <div class="instruksi">
+        <b>CARA COPY KE WORD (VERSI RAPI):</b><br>
+        1. Blok tabel ini dan <b>Copy (Ctrl+C)</b>.<br>
+        2. Di Microsoft Word, <b>Paste (Ctrl+V)</b>.<br>
+        3. Jika di Word masih agak melebar, klik di sembarang tempat di dalam tabel, lalu pilih menu <b>Layout -> AutoFit -> AutoFit Window</b>.
+    </div>
+
+    <table>
+        <tr>
+            <th>Kategori Pengguna</th>
+            <th>Tugas Utama</th>
+            <th>Hak Akses ke Aplikasi</th>
+            <th>Kemampuan yang Harus Dimiliki</th>
+        </tr>
+        <tr>
+            <td><b>Admin / Pemilik Kos</b></td>
+            <td>Memantau seluruh kamar, mengelola tagihan, memverifikasi pembayaran, dan mengawasi CCTV.</td>
+            <td><b>Penuh:</b> Akses ke Dashboard, Data Penghuni, Keuangan, Mikrotik, dan CCTV.</td>
+            <td>Bisa mengoperasikan web browser dasar & paham manajemen utilitas kos.</td>
+        </tr>
+        <tr>
+            <td><b>AI Agent (KosMate)</b></td>
+            <td>Memproses chat admin, deteksi otomatis penunggak bayar, dan eksekusi blokir Mikrotik.</td>
+            <td><b>Otonom:</b> Akses ke data status kamar, terminal Mikrotik, dan sistem notifikasi.</td>
+            <td>Beroperasi otonom (mandiri) berbasis logika; tidak butuh bantuan manusia untuk tugas rutin.</td>
+        </tr>
+    </table>
+</body>
+</html>

@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Export Diagram KOSMATE AI</title>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true, 
+            theme: 'default',
+            securityLevel: 'loose',
+            scale: 1 
+        });
+    </script>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f2f5; color: #333; padding: 20px; max-width: 800px; margin: 0 auto; }
+        .header { text-align: center; margin-bottom: 40px; }
+        .header h1 { color: #1a73e8; margin-bottom: 10px; }
+        .diagram-container { border: 1px solid #ddd; padding: 20px; margin-bottom: 50px; background: #fff; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        h2 { border-bottom: 2px solid #1a73e8; padding-bottom: 10px; margin-top: 0; color: #202124; font-size: 18px;}
+        .mermaid { display: flex; justify-content: center; margin-top: 20px; }
+        /* Memaksa gambar SVG tidak terlalu raksasa */
+        .mermaid svg { max-width: 90%; height: auto; max-height: 500px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Diagram Generator - KosMate AI</h1>
+    </div>
+
+    <div class="diagram-container">
+        <h2>1. Use Case Diagram Keseluruhan</h2>
+        <div class="mermaid">
+flowchart LR
+    %% Aktor
+    Admin[👤 Admin / Pemilik]
+    AIAgent[🤖 AI Agent]
+
+    %% Use Cases dibungkus dalam Boundary (Kotak Sistem)
+    subgraph "Sistem KosMate AI"
+        direction TB
+        UC1((UC-1: Pantau Kamar))
+        UC2((UC-2: Kelola Tagihan))
+        UC3((UC-3: Transaksi QRIS))
+        UC4((UC-4: Data Penghuni))
+        UC5((UC-5: Pantau CCTV))
+        UC6((UC-6: Proses Perintah Bahasa Natural))
+        UC7((UC-7: Eksekusi Throttling Mikrotik))
+        UC8((UC-8: Konfigurasi AI Agent))
+    end
+
+    %% Relasi Admin
+    Admin --- UC1
+    Admin --- UC2
+    Admin --- UC3
+    Admin --- UC4
+    Admin --- UC5
+    Admin --- UC8
+    Admin --- UC6
+
+    %% Relasi AI
+    AIAgent --- UC6
+    AIAgent --- UC7
+
+    %% Dependencies
+    UC6 -.->|includes| UC7
+        </div>
+    </div>
+
+    <div class="diagram-container">
+        <h2>2. Activity Diagram (UC-1: Pemantauan Kamar)</h2>
+        <div class="mermaid">
+flowchart TD
+    A[Admin Buka Dashboard] --> B[Sistem Render 12 Kartu Kamar]
+    B --> C{Pilih Kartu?}
+    C -- Ya --> D[Tampilkan Modal Overlay]
+    D --> E[Render Data: Profil, Tagihan, IoT, Mikrotik]
+    E --> F[Admin Tutup Modal]
+    F --> B
+    C -- Tidak --> B
+        </div>
+    </div>
+
+    <div class="diagram-container">
+        <h2>3. Activity Diagram (UC-3: Finance & QRIS)</h2>
+        <div class="mermaid">
+flowchart TD
+    A[Admin Buka Tab Finance] --> B[Sistem Render Summary & QRIS]
+    B --> C{Pilih Aksi?}
+    C -- Lihat Riwayat --> D[Scroll Tabel Riwayat Pembayaran]
+    C -- Klik Blast Invoice WA --> E[Sistem Tampilkan Toast Notifikasi Hijau]
+    C -- Diam --> F[Animasi QRIS Scanner Berjalan Loop]
+        </div>
+    </div>
+
+    <div class="diagram-container">
+        <h2>4. Activity Diagram (UC-5: Simulasi CCTV & Motion)</h2>
+        <div class="mermaid">
+flowchart TD
+    A[Buka Tab Security Camera] --> B[Render Main Feed & Timer 30s Start]
+    B --> C{Tunggu 30 Detik atau Klik Simulasi?}
+    C -- Ya --> D[Tampilkan Banner MOTION DETECTED]
+    D --> E[Flash Merah Thumbnail Acak]
+    E --> F[Catat ke Event Log]
+    F --> G[Munculkan Toast Peringatan]
+    C -- Ubah Feed --> H[Klik Thumbnail Kamera Lain]
+    H --> I[Main Feed & HUD Berubah]
+        </div>
+    </div>
+
+    <div class="diagram-container">
+        <h2>5. Activity Diagram (UC-6: Chatbot Agentic Flow)</h2>
+        <div class="mermaid">
+flowchart TD
+    A[Klik Tombol Chatbot] --> B[Tampilkan Modal Chat]
+    B --> C[Ketik Perintah / Klik Quick Reply]
+    C --> D[AI NLP Engine Analisis Keyword]
+    D --> E{Apakah Butuh Konfirmasi?}
+    E -- Ya --> F[Tampilkan Respons Konfirmasi]
+    F --> G[Tunggu Admin Balas 'Gas Eksekusi']
+    G --> H[Tutup Chat & Pindah Tab Mikrotik Programmatic]
+    H --> I[Cetak Log Perintah SSH & Delay]
+    I --> J[Tampilkan Toast Sukses]
+    E -- Tidak --> K[Langsung Tampilkan Informasi Token/Listrik]
+        </div>
+    </div>
+
+    <div class="diagram-container">
+        <h2>6. Sequence Diagram (UC-1: Pemantauan Kamar)</h2>
+        <div class="mermaid">
+sequenceDiagram
+    actor Admin
+    participant UI_Dashboard
+    participant Modal_Component
+    participant Data_Store
+    
+    Admin->>UI_Dashboard: Akses Halaman
+    UI_Dashboard->>Data_Store: Get All Rooms Status
+    Data_Store-->>UI_Dashboard: Return JSON Array
+    UI_Dashboard->>UI_Dashboard: Render Cards (Hijau/Merah/Kuning)
+    
+    Admin->>UI_Dashboard: Klik Kartu Kamar 05
+    UI_Dashboard->>Data_Store: Get Details (Room 05)
+    Data_Store-->>Modal_Component: Return Detail Data
+    Modal_Component-->>Admin: Animasi Pop-in Modal
+    
+    Admin->>Modal_Component: Klik Toggle Blokir WiFi
+    Modal_Component->>UI_Dashboard: Ubah Warna Indikator WiFi
+    
+    Admin->>Modal_Component: Tutup (X)
+    Modal_Component-->>Admin: Animasi Fade-out
+        </div>
+    </div>
+
+    <div class="diagram-container">
+        <h2>7. Sequence Diagram (UC-3: Finance & QRIS)</h2>
+        <div class="mermaid">
+sequenceDiagram
+    actor Admin
+    participant Finance_UI
+    participant QRIS_Component
+    participant Notification_System
+    
+    Admin->>Finance_UI: Buka Tab Finance & QRIS
+    Finance_UI->>QRIS_Component: Inisialisasi QRIS
+    QRIS_Component->>QRIS_Component: Jalankan Animasi Scanner CSS
+    Finance_UI-->>Admin: Tampilkan Summary, Tagihan, & QRIS
+    
+    Admin->>Finance_UI: Klik Tombol "Blast Invoice WA"
+    Finance_UI->>Notification_System: Trigger Toast Message
+    Notification_System-->>Admin: Toast "Invoice WA Terkirim ke 10 Penghuni"
+        </div>
+    </div>
+
+    <div class="diagram-container">
+        <h2>8. Sequence Diagram (UC-5: Security Camera CCTV)</h2>
+        <div class="mermaid">
+sequenceDiagram
+    actor Admin
+    participant CCTV_UI
+    participant Timer
+    participant Event_Log
+    participant Toast_Notification
+    
+    Admin->>CCTV_UI: Buka Tab Security Camera
+    CCTV_UI->>Timer: Start 30s Idle Timer
+    CCTV_UI-->>Admin: Render Main Feed & HUD Timestamp
+    
+    Admin->>CCTV_UI: Klik "Simulasi Motion" (atau Timer mencapai 30s)
+    CCTV_UI->>CCTV_UI: Animasi Banner Merah "MOTION DETECTED"
+    CCTV_UI->>CCTV_UI: Flash Animasi pada Thumbnail Kamera Acak
+    CCTV_UI->>Event_Log: Insert Baris Baru (Waktu + ID Kamera)
+    CCTV_UI->>Toast_Notification: Panggil Toast Merah
+    Toast_Notification-->>Admin: Muncul Peringatan Kritis!
+        </div>
+    </div>
+
+    <div class="diagram-container">
+        <h2>9. Sequence Diagram (UC-6 & UC-7: Agentic AI Chatbot ke Mikrotik)</h2>
+        <div class="mermaid">
+sequenceDiagram
+    actor Admin
+    participant Chatbot_UI
+    participant AI_Core
+    participant Mikrotik_Terminal
+    participant Notification_System
+    
+    Admin->>Chatbot_UI: Ketik: "Siapa yang nunggak?"
+    Chatbot_UI->>AI_Core: Lempar Teks
+    AI_Core-->>Chatbot_UI: Return: "Kamar 03 & 10 nunggak. Eksekusi limitasi?"
+    Chatbot_UI-->>Admin: Tampilkan Balasan AI
+    
+    Admin->>Chatbot_UI: Ketik: "Gas eksekusi"
+    Chatbot_UI->>AI_Core: Trigger Perintah Final
+    AI_Core->>Chatbot_UI: Tutup Panel Chatbot
+    AI_Core->>Mikrotik_Terminal: Ganti Tab Aktif Programmatic
+    Mikrotik_Terminal-->>Admin: Menampilkan Layar Terminal
+    
+    AI_Core->>Mikrotik_Terminal: Write Log "[Timestamp] AI Agent Initiated"
+    Note over AI_Core,Mikrotik_Terminal: Delay 1.5 detik
+    AI_Core->>Mikrotik_Terminal: Tulis Perintah: /queue simple add name=Limit03
+    Note over AI_Core,Mikrotik_Terminal: Delay 1.5 detik
+    AI_Core->>Mikrotik_Terminal: Write Log "[OK] Action Completed"
+    
+    AI_Core->>Notification_System: Trigger Toast Sukses
+    Notification_System-->>Admin: Toast: "Bandwidth Berhasil Dipotong"
+        </div>
+    </div>
+
+    <div class="diagram-container">
+        <h2>10. Class Diagram</h2>
+        <div class="mermaid">
+classDiagram
+    class Kamar {
+        +String nomorKamar
+        +String namaPenghuni
+        +String statusPembayaran
+        +Boolean wifiAktif
+        +getDetail()
+        +toggleWifiStatus()
+    }
+    
+    class Tagihan {
+        +Double tagihanListrik
+        +Double tagihanAir
+        +Double tagihanWifi
+        +Double dendaKeterlambatan
+        +Double hitungTotal()
+    }
+    
+    class IoTDevice {
+        +String namaAlat
+        +Double konsumsiKwh
+        +getProgressPercentage()
+    }
+    
+    class AIAgent {
+        +String agentName
+        +Boolean isAutonomous
+        +prosesPerintahNLP(String input)
+        +eksekusiMikrotik(List target)
+        +blastWhatsApp(List target)
+    }
+    
+    class CCTV {
+        +String kameraId
+        +String status
+        +String lastMotionTime
+        +triggerSimulasiMotion()
+        +tulisEventLog()
+    }
+    
+    Kamar "1" *-- "1" Tagihan : memiliki >
+    Kamar "1" *-- "4" IoTDevice : dipantau >
+    AIAgent --> Kamar : baca & ubah status >
+    AIAgent --> CCTV : monitor >
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KosMate AI | Enterprise Dashboard</title>
+    <link rel="stylesheet" href="./styles/main.css?v=7">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js for Financial Graph -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="app-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar glass">
+            <div class="brand">
+                <i class="fa-solid fa-layer-group text-gradient"></i> KosMate<span class="text-gradient">.ai</span>
+            </div>
+            <nav class="main-nav">
+                <a href="#" class="nav-item active" data-target="dashboard"><i class="fa-solid fa-border-all"></i> Overviews</a>
+                <a href="#" class="nav-item" data-target="tenants"><i class="fa-solid fa-users"></i> Tenants DB</a>
+                <a href="#" class="nav-item" data-target="billing"><i class="fa-solid fa-file-invoice-dollar"></i> Finance & QRIS</a>
+                <a href="#" class="nav-item" data-target="mikrotik"><i class="fa-solid fa-network-wired"></i> Mikrotik Core</a>
+                <a href="#" class="nav-item" data-target="cctv"><i class="fa-solid fa-video"></i> Security Camera</a>
+                <a href="#" class="nav-item" data-target="settings"><i class="fa-solid fa-sliders"></i> Agent Config</a>
+            </nav>
+            <div class="user-widget">
+                <img src="https://ui-avatars.com/api/?name=Admin+Kos&background=3b82f6&color=fff" alt="Admin" class="avatar">
+                <div class="user-info">
+                    <h4>Admin System</h4>
+                    <p>Agent: <span class="status-dot"></span> Online</p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Workspace -->
+        <main class="workspace">
+            <!-- Topbar -->
+            <header class="topbar">
+                <div class="search-bar">
+                    <i class="fa-solid fa-magnifying-glass text-muted"></i>
+                    <input type="text" placeholder="Search tenants, MAC address, or logs...">
+                </div>
+                <div class="topbar-actions">
+                    <button class="icon-btn" onclick="triggerTestNotification()"><i class="fa-regular fa-bell"></i><span class="badge-dot"></span></button>
+                    <button class="icon-btn"><i class="fa-solid fa-gear"></i></button>
+                </div>
+            </header>
+
+            <div class="scroll-area">
+                
+                <!-- TAB 1: DASHBOARD -->
+                <section id="dashboard" class="page-view active">
+                    <div class="hero-stats grid-4">
+                        <div class="stat-card glass">
+                            <div class="stat-icon bg-blue"><i class="fa-solid fa-door-open"></i></div>
+                            <div class="stat-details">
+                                <p>Total Kamar</p>
+                                <h3>12 <small>/ 12 Terisi</small></h3>
+                            </div>
+                        </div>
+                        <div class="stat-card glass">
+                            <div class="stat-icon bg-green"><i class="fa-solid fa-money-bill-wave"></i></div>
+                            <div class="stat-details">
+                                <p>Total Patungan (Juli)</p>
+                                <h3>Rp 1.65jt</h3>
+                            </div>
+                        </div>
+                        <div class="stat-card glass warning-glow">
+                            <div class="stat-icon bg-yellow"><i class="fa-solid fa-bolt"></i></div>
+                            <div class="stat-details">
+                                <p>PLN Token (Kritis)</p>
+                                <h3>25.4 <small>kWh</small></h3>
+                            </div>
+                        </div>
+                        <div class="stat-card glass">
+                            <div class="stat-icon bg-purple"><i class="fa-solid fa-chart-pie"></i></div>
+                            <div class="stat-details">
+                                <p>Total Bandwidth</p>
+                                <h3>450 <small>GB used</small></h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-split" style="display:flex; gap: 1.5rem; margin-bottom: 2rem; align-items: flex-start;">
+                        <div class="rooms-panel" style="flex: 2;">
+                            <div class="section-header">
+                                <h2>Real-time Room Monitoring</h2>
+                            </div>
+                            <div class="rooms-grid" id="rooms-container"></div>
+                        </div>
+                        <div class="chart-panel glass" style="flex: 1; padding: 1.5rem; border-radius: 16px;">
+                            <div class="section-header" style="margin-bottom: 1rem;">
+                                <h2>Grafik Keuangan</h2>
+                            </div>
+                            <!-- Canvas Wrapper to prevent stretching -->
+                            <div style="position: relative; height: 300px; width: 100%;">
+                                <canvas id="financeChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TAB 2: TENANTS DB -->
+                <section id="tenants" class="page-view">
+                    <div class="section-header">
+                        <h2>Tenants Database</h2>
+                        <button class="btn-primary"><i class="fa-solid fa-plus"></i> Add Tenant</button>
+                    </div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr><th>Kamar</th><th>Nama Penghuni</th><th>Kontak</th><th>Tgl Masuk</th><th>Status Pembayaran</th><th>Aksi</th></tr>
+                            </thead>
+                            <tbody id="tenants-tbody">
+                                <!-- Generated by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- TAB 3: BILLING -->
+                <section id="billing" class="page-view">
+                    <div class="section-header">
+                        <div>
+                            <h2>Finance & QRIS Payment</h2>
+                            <p class="text-muted" style="font-size:0.82rem; margin-top:4px;">AI otomatis menghitung & mendistribusikan tagihan setiap bulan</p>
+                        </div>
+                        <button class="btn-primary" onclick="blastWhatsapp()"><i class="fa-brands fa-whatsapp"></i> Blast Invoice WA</button>
+                    </div>
+
+                    <!-- Finance Summary Row -->
+                    <div class="finance-summary-row">
+                        <div class="finance-sum-card">
+                            <div class="fscard-icon" style="background: linear-gradient(135deg,#10b981,#34d399);"><i class="fa-solid fa-circle-check"></i></div>
+                            <div>
+                                <p class="fscard-label">Sudah Bayar</p>
+                                <p class="fscard-value">9 Kamar</p>
+                            </div>
+                        </div>
+                        <div class="finance-sum-card">
+                            <div class="fscard-icon" style="background: linear-gradient(135deg,#ef4444,#f87171);"><i class="fa-solid fa-clock"></i></div>
+                            <div>
+                                <p class="fscard-label">Belum Bayar</p>
+                                <p class="fscard-value">2 Kamar</p>
+                            </div>
+                        </div>
+                        <div class="finance-sum-card">
+                            <div class="fscard-icon" style="background: linear-gradient(135deg,#3b82f6,#8b5cf6);"><i class="fa-solid fa-wallet"></i></div>
+                            <div>
+                                <p class="fscard-label">Terkumpul Bulan Ini</p>
+                                <p class="fscard-value text-gradient">Rp 1.440.000</p>
+                            </div>
+                        </div>
+                        <div class="finance-sum-card">
+                            <div class="fscard-icon" style="background: linear-gradient(135deg,#f59e0b,#fbbf24);"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                            <div>
+                                <p class="fscard-label">Tunggakan + Denda</p>
+                                <p class="fscard-value" style="color:var(--yellow);">Rp 370.000</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Main content: Bill detail + QRIS -->
+                    <div class="finance-main">
+                        <!-- Left: Bill Breakdown -->
+                        <div class="bill-panel">
+                            <div class="bill-panel-header">
+                                <i class="fa-solid fa-receipt text-blue"></i>
+                                <span>Rincian Patungan Per Kamar — Juli 2025</span>
+                            </div>
+
+                            <!-- Bill Row Items -->
+                            <div class="bill-rows">
+                                <div class="bill-row">
+                                    <div class="bill-row-icon" style="background:rgba(245,158,11,0.15); color:var(--yellow);"><i class="fa-solid fa-bolt"></i></div>
+                                    <div class="bill-row-info">
+                                        <p class="bill-row-name">Token Listrik PLN (AC 1/2PK)</p>
+                                        <p class="bill-row-sub">Pemakaian rata-rata 65 kWh/bulan/kamar</p>
+                                    </div>
+                                    <div class="bill-row-amount text-yellow">Rp 75.000</div>
+                                </div>
+                                <div class="bill-row">
+                                    <div class="bill-row-icon" style="background:rgba(59,130,246,0.15); color:var(--blue-light);"><i class="fa-solid fa-droplet"></i></div>
+                                    <div class="bill-row-info">
+                                        <p class="bill-row-name">Iuran Air PDAM</p>
+                                        <p class="bill-row-sub">Dibagi rata 10 kamar aktif</p>
+                                    </div>
+                                    <div class="bill-row-amount text-blue">Rp 35.000</div>
+                                </div>
+                                <div class="bill-row">
+                                    <div class="bill-row-icon" style="background:rgba(16,185,129,0.15); color:var(--green);"><i class="fa-solid fa-wifi"></i></div>
+                                    <div class="bill-row-info">
+                                        <p class="bill-row-name">Patungan Wi-Fi IndiHome</p>
+                                        <p class="bill-row-sub">50 Mbps — Rp 500.000 / 10 kamar</p>
+                                    </div>
+                                    <div class="bill-row-amount text-green">Rp 50.000</div>
+                                </div>
+                                <div class="bill-row" style="border-top: 1px dashed rgba(255,255,255,0.08); margin-top: 6px; padding-top: 16px;">
+                                    <div class="bill-row-icon" style="background:var(--gradient-main); color:white;"><i class="fa-solid fa-sigma"></i></div>
+                                    <div class="bill-row-info">
+                                        <p class="bill-row-name" style="font-weight:800;">Total Patungan Per Kamar</p>
+                                        <p class="bill-row-sub">Belum termasuk denda keterlambatan</p>
+                                    </div>
+                                    <div class="bill-row-amount text-gradient" style="font-size:1.2rem; font-family:'Outfit',sans-serif; font-weight:900;">Rp 160.000</div>
+                                </div>
+                            </div>
+
+                            <!-- Payment History mini table -->
+                            <div class="pay-history">
+                                <p class="pay-history-title"><i class="fa-solid fa-clock-rotate-left"></i> Riwayat Pembayaran Terakhir</p>
+                                <div class="pay-history-row"><span class="phy-name">Budi Santoso (K.01)</span><span class="phy-date">02 Jul 2025</span><span class="phy-amount text-green">Rp 160.000</span></div>
+                                <div class="pay-history-row"><span class="phy-name">Andi Wijaya (K.02)</span><span class="phy-date">01 Jul 2025</span><span class="phy-amount text-green">Rp 125.000</span></div>
+                                <div class="pay-history-row"><span class="phy-name">Reza Pahlevi (K.04)</span><span class="phy-date">03 Jul 2025</span><span class="phy-amount text-green">Rp 160.000</span></div>
+                                <div class="pay-history-row"><span class="phy-name">Dimas Pratama (K.03)</span><span class="phy-date">— Belum bayar</span><span class="phy-amount text-red">Rp 185.000</span></div>
+                            </div>
+                        </div>
+
+                        <!-- Right: QRIS Card -->
+                        <div class="qris-card">
+                            <div class="qris-card-top">
+                                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                                    <span class="qris-badge">QRIS Dinamis</span>
+                                    <span class="qris-powered">Powered by Xendit</span>
+                                </div>
+                                <p class="qris-title">Scan untuk Bayar</p>
+                                <p class="qris-sub">Generated untuk <strong id="qris-target">penghuni kos</strong></p>
+                            </div>
+                            <div class="qris-code-wrap">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg" alt="QRIS" class="qris-code-img">
+                                <div class="qris-scan-line"></div>
+                            </div>
+                            <div class="qris-footer">
+                                <div class="qris-bank-row">
+                                    <span class="qris-bank-tag">BCA</span>
+                                    <span class="qris-bank-tag">GoPay</span>
+                                    <span class="qris-bank-tag">OVO</span>
+                                    <span class="qris-bank-tag">DANA</span>
+                                    <span class="qris-bank-tag">ShopeePay</span>
+                                </div>
+                                <p class="qris-amount-label">Jumlah Tagihan</p>
+                                <p class="qris-amount-val">Rp 160.000</p>
+                                <button class="btn-primary w-100" style="margin-top:12px; justify-content:center;" onclick="blastWhatsapp()">
+                                    <i class="fa-brands fa-whatsapp"></i> Kirim ke WhatsApp
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TAB 4: MIKROTIK -->
+                <section id="mikrotik" class="page-view">
+                    <div class="section-header">
+                        <h2>Mikrotik Core Agent Log</h2>
+                        <span class="status-badge lunas"><i class="fa-solid fa-link"></i> Router 192.168.88.1 Connected</span>
+                    </div>
+                    <div class="terminal" id="master-terminal">
+                        <p class="sys">KosMate Agentic Kernel v4.0 initialized.</p>
+                        <p class="sys">Listening to payment hooks from Xendit...</p>
+                        <p class="sys">Standby for AI command.</p>
+                    </div>
+                </section>
+
+                <!-- TAB 5: CCTV -->
+                <section id="cctv" class="page-view">
+                    <!-- CCTV Status Bar -->
+                    <div class="cctv-statusbar">
+                        <div class="cctv-stat-item"><i class="fa-solid fa-video text-green"></i><span>4 Kamera Aktif</span></div>
+                        <div class="cctv-stat-item"><i class="fa-solid fa-triangle-exclamation text-yellow"></i><span id="motion-counter">0 Motion Terdeteksi</span></div>
+                        <div class="cctv-stat-item"><i class="fa-solid fa-hard-drive text-blue"></i><span>Storage: 214 GB / 500 GB</span></div>
+                        <div class="cctv-stat-item"><span class="rec-badge"><i class="fa-solid fa-circle"></i> REC</span></div>
+                        <button class="btn-primary" style="padding: 8px 16px; font-size: 0.85rem;" onclick="triggerMotionAlert()"><i class="fa-solid fa-bolt"></i> Simulasi Motion</button>
+                    </div>
+
+                    <!-- Main & Side Layout -->
+                    <div class="cctv-layout">
+                        <!-- Main Feed -->
+                        <div class="cctv-main-feed" id="main-feed">
+                            <div class="cctv-hud">
+                                <div class="hud-top">
+                                    <span class="hud-cam-name" id="main-cam-name">CAM 01 — LORONG UTAMA</span>
+                                    <span class="hud-time" id="main-time"></span>
+                                </div>
+                                <div class="hud-corner tl"></div>
+                                <div class="hud-corner tr"></div>
+                                <div class="hud-corner bl"></div>
+                                <div class="hud-corner br"></div>
+                                <div class="motion-alert" id="main-motion-alert"><i class="fa-solid fa-triangle-exclamation"></i> MOTION DETECTED</div>
+                            </div>
+                            <img id="main-img" src="https://images.unsplash.com/photo-1558002038-1055907df827?w=900&q=80" alt="Main CCTV">
+                            <div class="cctv-controls">
+                                <button class="ctrl-btn active" title="Recording"><i class="fa-solid fa-circle-dot text-red"></i></button>
+                                <button class="ctrl-btn" title="Snapshot" onclick="showToastCctv()"><i class="fa-solid fa-camera"></i></button>
+                                <button class="ctrl-btn" title="Audio"><i class="fa-solid fa-volume-xmark"></i></button>
+                                <button class="ctrl-btn" title="Fullscreen" onclick="openCctvFullscreen()"><i class="fa-solid fa-expand"></i></button>
+                            </div>
+                        </div>
+
+                        <!-- Side thumbnails -->
+                        <div class="cctv-thumbs">
+                            <div class="cctv-thumb active" id="thumb-0" onclick="focusCam(0)">
+                                <img src="https://images.unsplash.com/photo-1558002038-1055907df827?w=400&q=60" alt="CAM 01">
+                                <div class="thumb-label">CAM 01 — LORONG</div>
+                                <div class="thumb-status online">● ONLINE</div>
+                                <div class="motion-badge" id="mb-0" style="display:none"><i class="fa-solid fa-person-running"></i></div>
+                            </div>
+                            <div class="cctv-thumb" id="thumb-1" onclick="focusCam(1)">
+                                <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&q=60" alt="CAM 02">
+                                <div class="thumb-label">CAM 02 — PARKIRAN</div>
+                                <div class="thumb-status online">● ONLINE</div>
+                                <div class="motion-badge" id="mb-1" style="display:none"><i class="fa-solid fa-person-running"></i></div>
+                            </div>
+                            <div class="cctv-thumb" id="thumb-2" onclick="focusCam(2)">
+                                <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=400&q=60" alt="CAM 03">
+                                <div class="thumb-label">CAM 03 — DAPUR</div>
+                                <div class="thumb-status online">● ONLINE</div>
+                                <div class="motion-badge" id="mb-2" style="display:none"><i class="fa-solid fa-person-running"></i></div>
+                            </div>
+                            <div class="cctv-thumb" id="thumb-3" onclick="focusCam(3)">
+                                <img src="https://images.unsplash.com/photo-1584438784894-089d6a62b8fa?w=400&q=60" alt="CAM 04">
+                                <div class="thumb-label">CAM 04 — GERBANG</div>
+                                <div class="thumb-status online">● ONLINE</div>
+                                <div class="motion-badge" id="mb-3" style="display:none"><i class="fa-solid fa-person-running"></i></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Event Log -->
+                    <div class="cctv-log glass" style="margin-top:1.5rem; padding: 1.2rem 1.5rem; border-radius: 14px;">
+                        <h4 style="margin: 0 0 12px 0; color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px;"><i class="fa-solid fa-list-ul"></i> Security Event Log</h4>
+                        <div id="cctv-event-log" style="display:flex; flex-direction:column; gap: 8px; max-height: 120px; overflow-y: auto;">
+                            <div class="log-entry"><span class="log-time">21:00:01</span><span class="log-cam text-blue">CAM 01</span><span class="log-msg">Sistem CCTV diaktifkan. Semua kamera online.</span></div>
+                            <div class="log-entry"><span class="log-time">21:05:33</span><span class="log-cam text-green">CAM 04</span><span class="log-msg">Deteksi pergerakan di area gerbang masuk.</span></div>
+                            <div class="log-entry"><span class="log-time">21:12:17</span><span class="log-cam text-yellow">CAM 02</span><span class="log-msg">Kendaraan terdeteksi memasuki area parkiran.</span></div>
+                        </div>
+                    </div>
+                <!-- TAB 6 starts below -->
+
+                <!-- TAB 6: SETTINGS -->
+                <section id="settings" class="page-view">
+                    <div class="section-header">
+                        <h2>Agent Configuration</h2>
+                    </div>
+                    <div class="settings-grid">
+                        <div class="setting-card glass">
+                            <h3><i class="fa-solid fa-gauge-high text-blue"></i> Throttling Rules</h3>
+                            <div class="setting-row">
+                                <span style="font-weight:600;">Batas Keterlambatan (Hari)</span>
+                                <input type="number" value="1" class="form-input" style="width:80px; color:#000; background:rgba(0,0,0,0.05); border:1px solid rgba(0,0,0,0.1);">
+                            </div>
+                            <div class="setting-row">
+                                <span style="font-weight:600;">Limitasi Kecepatan (kbps)</span>
+                                <select class="form-input" style="color:#000; background:rgba(0,0,0,0.05); border:1px solid rgba(0,0,0,0.1);">
+                                    <option>128 kbps</option>
+                                    <option>256 kbps</option>
+                                    <option>Block (0 kbps)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="setting-card glass">
+                            <h3><i class="fa-solid fa-robot text-purple"></i> Auto-Action Permissions</h3>
+                            <label class="toggle-switch">
+                                <span>Auto-Limit Wi-Fi Penunggak</span>
+                                <input type="checkbox" checked>
+                                <span class="slider"></span>
+                            </label>
+                            <label class="toggle-switch">
+                                <span>Auto-Beli Token Listrik (BCA API)</span>
+                                <input type="checkbox">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- MODAL: Room Details -->
+    <div class="modal-overlay" id="roomModal">
+        <div class="modal-dialog">
+            <button class="modal-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-header">
+                <h2 id="modal-title">Kamar --</h2>
+                <span class="status-badge" id="modal-badge">Status</span>
+            </div>
+            <div class="modal-body">
+                <div class="profile-sect">
+                    <div class="profile-pic"><i class="fa-solid fa-user"></i></div>
+                    <div>
+                        <h3 id="modal-name">Nama Penghuni</h3>
+                        <p class="text-muted"><i class="fa-solid fa-phone"></i> <span id="modal-phone">08xx</span></p>
+                    </div>
+                </div>
+                
+                <div class="tech-sect" style="background: rgba(16, 185, 129, 0.05); border-color: rgba(16, 185, 129, 0.2);">
+                    <h4><i class="fa-solid fa-file-invoice-dollar text-green"></i> Tagihan Utilitas</h4>
+                    <div class="tech-grid">
+                        <div class="tech-item"><span class="label">Listrik (AC)</span><span class="value text-yellow" id="modal-listrik">Rp 0</span></div>
+                        <div class="tech-item"><span class="label">Iuran Air</span><span class="value text-blue" id="modal-air">Rp 0</span></div>
+                        <div class="tech-item"><span class="label">Patungan Wi-Fi</span><span class="value text-green" id="modal-wifi">Rp 0</span></div>
+                        <div class="tech-item" id="denda-container"><span class="label">Denda Keterlambatan</span><span class="value text-red" id="modal-denda">Rp 0</span></div>
+                        <div class="tech-item" style="grid-column: span 2; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 10px;"><span class="label">Total Tagihan</span><span class="value text-purple" id="modal-total" style="font-size:1.3rem;">Rp 0</span></div>
+                    </div>
+                </div>
+
+                <!-- IoT Energy Monitoring Section -->
+                <div class="tech-sect">
+                    <h4><i class="fa-solid fa-bolt text-yellow"></i> IoT Energy Monitoring</h4>
+                    <div class="appliance-list" id="modal-appliances">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <div class="tech-sect">
+                    <h4><i class="fa-solid fa-network-wired text-blue"></i> Mikrotik Router Data</h4>
+                    <div class="tech-grid">
+                        <div class="tech-item"><span class="label">MAC Address</span><span class="value" id="modal-mac">AA:BB:CC</span></div>
+                        <div class="tech-item"><span class="label">Data Usage</span><span class="value text-purple" id="modal-usage">0 GB</span></div>
+                    </div>
+                </div>
+
+                <div class="action-sect">
+                    <h4><i class="fa-solid fa-power-off text-red"></i> Manual Override</h4>
+                    <label class="toggle-switch">
+                        <span>Akses Internet Wi-Fi (Block)</span>
+                        <input type="checkbox" id="modal-wifi-toggle" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Chatbot Center -->
+    <div class="chatbot-trigger" onclick="toggleChatbot()">
+        <i class="fa-solid fa-robot"></i>
+    </div>
+    
+    <div class="chatbot-panel" id="chatbot-panel">
+        <div class="cb-header">
+            <h3><i class="fa-solid fa-sparkles"></i> KosMate AI Agent</h3>
+            <button class="cb-close" onclick="toggleChatbot()"><i class="fa-solid fa-chevron-down"></i></button>
+        </div>
+        <div class="cb-body" id="cb-body">
+            <div class="cb-msg ai">Halo Admin! Saya KosMate AI, asisten otonom Anda. Ada yang bisa saya bantu hari ini?</div>
+        </div>
+        <div class="quick-replies">
+            <button class="qr-btn" onclick="sendUserMsg('Siapa yang nunggak?')">Siapa yang nunggak?</button>
+            <button class="qr-btn" onclick="sendUserMsg('Tampilkan CCTV Lorong')">Cek Kamera</button>
+        </div>
+        <div class="cb-footer">
+            <input type="text" class="cb-input" id="cb-input" placeholder="Ketik perintah ke AI..." onkeypress="handleChatKey(event)">
+            <button class="cb-send" onclick="handleSendBtn()"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <!-- Notification Toast Container -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- Scripts -->
+    <script src="./scripts/app.js"></script>
+</body>
+</html>

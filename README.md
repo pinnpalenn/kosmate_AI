@@ -22,7 +22,8 @@
 ## 📸 Tangkapan Layar (Screenshot)
 > **Catatan:** Berikut adalah cuplikan halaman indeks dari dokumentasi web SKPL.
 
-![Screenshot SKPL](https://via.placeholder.com/800x400.png?text=Screenshot+Dokumentasi+SKPL)
+<img width="1917" height="983" alt="image" src="https://github.com/user-attachments/assets/31e48470-cc7e-46e9-a784-e7ac3351d4b2" />
+
 
 ## 📂 Struktur Folder
 Berikut adalah struktur folder dan organisasi file dari repository dokumentasi ini:

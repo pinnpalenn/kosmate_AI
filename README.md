@@ -1,10 +1,4 @@
 
----
-
-### 2. Untuk Repository: `kosmate_AI`
-*(Copy kotak hitam ini dan paste ke GitHub kosmate_AI Anda)*
-
-```markdown
 <h1 align="center">📄 Dokumentasi SKPL - KosMate AI</h1>
 
 <p align="center">

@@ -20,7 +20,7 @@
 - 📄 **Format PDF:** Menyediakan versi *hardcopy/printable* (SKPL_KostMate_Alvin Afalen.pdf).
 
 ## 📸 Tangkapan Layar (Screenshot)
-> **Catatan:** Berikut adalah cuplikan halaman indeks dari dokumentasi web SKPL.
+> **Catatan:** Berikut adalah cuplikan halaman dashboard dari web KostMate AI.
 
 <img width="1917" height="983" alt="image" src="https://github.com/user-attachments/assets/31e48470-cc7e-46e9-a784-e7ac3351d4b2" />
 
